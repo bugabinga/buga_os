@@ -4,7 +4,7 @@ jobs:
     docker:
       - image: 'tomastomecek/rust:nightly'
         environment:
-          CARGO_HOME: $CIRCLE_WORKING_DIRECTORY
+          CARGO_HOME: '${{Environment.CIRCLE_WORKING_DIRECTORY}}'
     steps:
       - checkout
       - restore_cache:
@@ -22,7 +22,7 @@ jobs:
     docker:
       - image: 'tomastomecek/rust:nightly'
         environment:
-          CARGO_HOME: $CIRCLE_WORKING_DIRECTORY
+          CARGO_HOME: '${{Environment.CIRCLE_WORKING_DIRECTORY}}'
     steps:
       - checkout
       - restore_cache:
