@@ -17,8 +17,7 @@ jobs:
       - save_cache:
           key: 'v1-cargo-crates-{{ checksum "Cargo.lock"}}'
           paths:
-            - $CARGO_HOME
-            - $CARGO_INSTALL_ROOT
+            - .cargo
   test:
     docker:
       - image: 'tomastomecek/rust:nightly'
@@ -34,8 +33,7 @@ jobs:
       - save_cache:
           key: 'v1-cargo-crates-{{ checksum "Cargo.lock"}}'
           paths:
-            - $CARGO_HOME
-            - $CARGO_INSTALL_ROOT
+            - .cargo
   lint:
     docker:
       - image: 'tomastomecek/rust:clippy'
@@ -51,8 +49,7 @@ jobs:
       - save_cache:
           key: 'v1-cargo-crates-{{ checksum "Cargo.lock"}}'
           paths:
-            - $CARGO_HOME
-            - $CARGO_INSTALL_ROOT
+            - .cargo
 workflows:
   version: 2
   lint_build_test:
