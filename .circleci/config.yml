@@ -8,14 +8,14 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: 'v1-cargo-crates-{{ checksum "Cargo.lock"}}'
+          key: 'v2-cargo-crates-{{ checksum "Cargo.lock"}}'
       - run:
           name: Deploy Bootimage TODO!
           command: >-
             echo "need to install cargo-make and bootimage and deploy the
             artifact!"
       - save_cache:
-          key: 'v1-cargo-crates-{{ checksum "Cargo.lock"}}'
+          key: 'v2-cargo-crates-{{ checksum "Cargo.lock"}}'
           paths:
             - .cargo
   test:
@@ -26,34 +26,17 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: 'v1-cargo-crates-{{ checksum "Cargo.lock"}}'
+          key: 'v2-cargo-crates-{{ checksum "Cargo.lock"}}'
       - run:
           name: Unit tests
           command: cargo test
       - save_cache:
-          key: 'v1-cargo-crates-{{ checksum "Cargo.lock"}}'
-          paths:
-            - .cargo
-  lint:
-    docker:
-      - image: 'tomastomecek/rust:clippy'
-        environment:
-          CARGO_HOME: $CIRCLE_WORKING_DIRECTORY
-    steps:
-      - checkout
-      - restore_cache:
-          key: 'v1-cargo-crates-{{ checksum "Cargo.lock"}}'
-      - run:
-          name: Linter (clippy)
-          command: cargo test
-      - save_cache:
-          key: 'v1-cargo-crates-{{ checksum "Cargo.lock"}}'
+          key: 'v2-cargo-crates-{{ checksum "Cargo.lock"}}'
           paths:
             - .cargo
 workflows:
   version: 2
-  lint_build_test:
+  deploy_test:
     jobs:
-      - lint
       - deploy
       - test

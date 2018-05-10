@@ -1,3 +1,6 @@
+// use clippy linting during unit tests
+#![cfg_attr(test, feature(plugin))]
+#![cfg_attr(test, plugin(clippy))]
 // needed for custom runtime panic handler. rust nightly feature!
 #![feature(lang_items)]
 // do not link the rust standard library, because that depends on a kernel, which does not yet exist ;).

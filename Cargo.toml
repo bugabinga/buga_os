@@ -3,9 +3,12 @@ name = "buga_os"
 version = "0.1.0"
 authors = ["Oliver Jan Krylow <oliver@bugabinga.net>"]
 
+[dev-dependencies]
+clippy = "*"
+
 [dependencies]
-volatile="*"
-spin="*"
+volatile = "*"
+spin = "*"
 
 [dependencies.lazy_static]
 version = "*"
