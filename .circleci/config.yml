@@ -5,23 +5,44 @@ jobs:
       - image: 'tomastomecek/rust:nightly'
     steps:
       - checkout
+      - restore_cache:
+          key: 'v1-cargo-crates-{{ checksum "Cargo.lock"}}'
       - run:
           name: Deploy Bootimage TODO!
           command: cargo make build
+      - save_cache:
+          key: 'v1-cargo-crates-{{ checksum "Cargo.lock"}}'
+          paths:
+            - $CARGO_HOME
+            - $CARGO_INSTALL_ROOT
   test:
     docker:
       - image: 'tomastomecek/rust:nightly'
     steps:
+      - restore_cache:
+          key: 'v1-cargo-crates-{{ checksum "Cargo.lock"}}'
       - run:
           name: Unit tests
           command: cargo test
+      - save_cache:
+          key: 'v1-cargo-crates-{{ checksum "Cargo.lock"}}'
+          paths:
+            - $CARGO_HOME
+            - $CARGO_INSTALL_ROOT
   lint:
     docker:
       - image: 'tomastomecek/rust:clippy'
     steps:
+      - restore_cache:
+          key: 'v1-cargo-crates-{{ checksum "Cargo.lock"}}'
       - run:
           name: Linter (clippy)
           command: cargo test
+      - save_cache:
+          key: 'v1-cargo-crates-{{ checksum "Cargo.lock"}}'
+          paths:
+            - $CARGO_HOME
+            - $CARGO_INSTALL_ROOT
 workflows:
   version: 2
   lint_build_test:
