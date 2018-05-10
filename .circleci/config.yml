@@ -3,7 +3,8 @@ jobs:
   deploy:
     docker:
       - image: 'tomastomecek/rust:nightly'
-    working_directory: /src
+        environment:
+          CARGO_HOME: $CIRCLE_WORKING_DIRECTORY
     steps:
       - checkout
       - restore_cache:
@@ -19,7 +20,6 @@ jobs:
   test:
     docker:
       - image: 'tomastomecek/rust:nightly'
-    working_directory: /src
     steps:
       - checkout
       - restore_cache:
@@ -35,7 +35,6 @@ jobs:
   lint:
     docker:
       - image: 'tomastomecek/rust:clippy'
-    working_directory: /src
     steps:
       - checkout
       - restore_cache:
