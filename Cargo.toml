@@ -1,0 +1,16 @@
+[package]
+name = "buga_os"
+version = "0.1.0"
+authors = ["Oliver Jan Krylow <oliver@bugabinga.net>"]
+
+[dependencies]
+volatile="*"
+spin="*"
+
+[dependencies.lazy_static]
+version = "*"
+features = ["spin_no_std"]
+
+# tell bootimage about out custom target
+[package.metadata.bootimage]
+default-target = "x86_64-buga_os.json"

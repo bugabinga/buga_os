@@ -1,0 +1,31 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: 'tomastomecek/rust:nightly'
+    steps:
+      - checkout
+      - run:
+          name: Deploy Bootimage TODO!
+          command: cargo make build
+  test:
+    docker:
+      - image: 'tomastomecek/rust:nightly'
+    steps:
+      - run:
+          name: Unit tests
+          command: cargo test
+  lint:
+    docker:
+      - image: 'tomastomecek/rust:clippy'
+    steps:
+      - run:
+          name: Linter (clippy)
+          command: cargo test
+workflows:
+  version: 2
+  lint_build_test:
+    jobs:
+      - lint
+      - deploy
+      - test

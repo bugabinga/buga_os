@@ -1,0 +1,9 @@
+[tasks.build]
+description = "Build no-std rust binary. Combine it with a preconfigured bootloader from rust-osdev."
+command = "bootimage"
+args = ["build"]
+
+[tasks.boot]
+description="Boot the kernel in a qemu virtual machine."
+command="bootimage"
+args=["run"]
