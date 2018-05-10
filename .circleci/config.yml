@@ -11,7 +11,9 @@ jobs:
           key: 'v1-cargo-crates-{{ checksum "Cargo.lock"}}'
       - run:
           name: Deploy Bootimage TODO!
-          command: cargo make build
+          command: >-
+            echo "need to install cargo-make and bootimage and deploy the
+            artifact!"
       - save_cache:
           key: 'v1-cargo-crates-{{ checksum "Cargo.lock"}}'
           paths:
@@ -20,6 +22,8 @@ jobs:
   test:
     docker:
       - image: 'tomastomecek/rust:nightly'
+        environment:
+          CARGO_HOME: $CIRCLE_WORKING_DIRECTORY
     steps:
       - checkout
       - restore_cache:
@@ -35,6 +39,8 @@ jobs:
   lint:
     docker:
       - image: 'tomastomecek/rust:clippy'
+        environment:
+          CARGO_HOME: $CIRCLE_WORKING_DIRECTORY
     steps:
       - checkout
       - restore_cache:
