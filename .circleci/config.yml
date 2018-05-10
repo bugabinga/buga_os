@@ -19,6 +19,7 @@ jobs:
     docker:
       - image: 'tomastomecek/rust:nightly'
     steps:
+      - checkout
       - restore_cache:
           key: 'v1-cargo-crates-{{ checksum "Cargo.lock"}}'
       - run:
@@ -33,6 +34,7 @@ jobs:
     docker:
       - image: 'tomastomecek/rust:clippy'
     steps:
+      - checkout
       - restore_cache:
           key: 'v1-cargo-crates-{{ checksum "Cargo.lock"}}'
       - run:
